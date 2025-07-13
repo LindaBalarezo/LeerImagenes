@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>OCR desde imagen local o URL</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 40px;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+
+        h2 {
+            color: #1a73e8;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        input[type="file"], input[type="text"] {
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            padding: 8px;
+            font-size: 14px;
+        }
+
+        button {
+            margin-top: 20px;
+            background-color: #1a73e8;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #155ac3;
+        }
+
+        .preview {
+            margin-top: 20px;
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        .output {
+            margin-top: 30px;
+            background: #eef1f7;
+            padding: 20px;
+            border-radius: 8px;
+            white-space: pre-line;
+        }
+    </style>
+    <script>
+        function showPreview(event) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                const preview = document.getElementById('imagePreview');
+                preview.src = reader.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        function showUrlPreview() {
+            const urlInput = document.getElementById('image_url').value;
+            const preview = document.getElementById('imagePreview');
+            preview.src = urlInput;
+            preview.style.display = 'block';
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Analizar Imagen (OCR)</h2>
+        <form method="POST" enctype="multipart/form-data">
+            <label>📤 Cargar imagen desde tu PC:</label>
+            <input type="file" name="image_file" accept="image/*" onchange="showPreview(event)">
+
+            <label>🌐 O ingresa la URL de una imagen:</label>
+            <input type="text" id="image_url" name="image_url" placeholder="https://ejemplo.com/imagen.jpg" oninput="showUrlPreview()">
+
+            <button type="submit">Detectar Texto</button>
+        </form>
+
+        <img id="imagePreview" class="preview" src="#" alt="Vista previa" style="display: none;" />
+
+        {% if description %}
+            <div class="output">
+                <h3>Texto detectado:</h3>
+                <p>{{ description }}</p>
+                <p><strong>Idioma detectado:</strong> {{ language }}</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
