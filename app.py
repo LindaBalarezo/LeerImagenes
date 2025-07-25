@@ -3,8 +3,8 @@ import requests
 
 app = Flask(__name__)
 
-VISION_KEY = 'EUzamgRerfhRHfREFmYjYiwMxTGm8hfXsArDX8EJJk9UuxjhAzROJQQJ99BGAC4f1cMXJ3w3AAAFACOG9P7X'
-VISION_ENDPOINT = 'https://lkbc-cv-2025-2.cognitiveservices.azure.com'
+VISION_KEY = '37JKlfyAQXBr4CcFLjrvTCuLImwCGsJSIiCtwIdXZZkn4HZ55zJLJQQJ99BGAC4f1cMXJ3w3AAAFACOGpIxK'
+VISION_ENDPOINT = 'https://lkbc-cv-2025-3.cognitiveservices.azure.com/'
 
 @app.route("/", methods=["GET", "POST"])
 def index():
